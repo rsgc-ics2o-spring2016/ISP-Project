@@ -24,13 +24,13 @@ void draw() {
 }
 void keyPressed()
 {if(key == CODED){
-  if (keyCode == RIGHT) {posx=posx+10;
+  if (keyCode == RIGHT) {posx=posx+5;
   }
-  if (keyCode == LEFT) {posx=posx-10;
+  if (keyCode == LEFT) {posx=posx-5;
   }
-    if (keyCode == UP) {posy=posy-10;
+    if (keyCode == UP) {posy=posy-5;
   }
-  if (keyCode == DOWN) {posy=posy+10;
+  if (keyCode == DOWN) {posy=posy+5;
   }
 }
 }
