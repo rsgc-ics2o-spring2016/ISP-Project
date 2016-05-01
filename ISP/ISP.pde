@@ -14,36 +14,41 @@ void setup()
   y.add(20);
 }
 void draw() {
-  background(255);
-  fill(random(255), random(255), random(255));
-  rect(x.get(i)*bs, y.get(i)*bs, bs, bs);
-  //fill(random(255), random(255),random(255));
-  //rect(x.get(i)*bs+20,y.get(i)*bs,bs,bs);
-  //fill(random(255), random(255),random(255));
-  //rect(x.get(i)*bs+40,y.get(i)*bs,bs,bs);
-  fill(255,0,0);
-  rect(foodx*bs, foody*bs, bs, bs);
-  //adds and removes blocks as the snake moves to create the illusion it is moving 
-  //it removes the block and adds another in front of it
-  //also controls speed of the snake
-  if (frameCount%8==0) {
-    x.add(0, x.get(0)+dx[dir]);
-    y.add(0, y.get(0)+dy[dir]);
-    for (int i = 1; i < x.size(); i++) if (x.get(0) == x.get(i) &&  y.get(0) == y.get(i)) gameover = true;
-   //if snake eats block then create new block at random pos
-    if (x.get(0)==foodx && y.get(0)==foody) {
-      foodx = (int)random(0, w);
-      foody = (int)random(0, h);
-    }else{
-      x.remove(x.size()-1);
-      y.remove(y.size()-1);
-    }
+  {
+    background(255);
+    fill(random(255), random(255), random(255));
+    rect(x.get(i)*bs, y.get(i)*bs, bs, bs);
   }
-
-
-    if (keyPressed == true) {
-      //determines the direction of the movement of the snake based on the w, a , s ,d keys
-      int newdir = key =='s' ? 0 : (key=='w' ? 1 : (key=='d' ? 2 : (key=='a' ? 3 : -1)));
-      if (newdir != -1) dir = newdir;
+  if (!gameover) {
+    fill(255, 0, 0);
+    rect(foodx*bs, foody*bs, bs, bs);
+    //adds and removes blocks as the snake moves to create the illusion it is moving 
+    //it removes the block and adds another in front of it
+    //also controls speed of the snake
+    if (frameCount%5==0) {
+      x.add(0, x.get(0)+dx[dir]);
+      y.add(0, y.get(0)+dy[dir]);
+      //if snake goes off the screen game is over
+      //also if you are going right and press the left button it will result in game over as well
+      if (x.get(0) < 0 || y.get(0) < 0 || x.get(0) >= w || y.get(0) >= h) gameover = true;
+      for (int i = 1; i < x.size(); i++) if (x.get(0) == x.get(i) &&  y.get(0) == y.get(i)) gameover = true;
+      //if snake eats block then create new block at random pos
+      if (x.get(0)==foodx && y.get(0)==foody) {
+        foodx = (int)random(0, w);
+        foody = (int)random(0, h);
+      } else {
+        x.remove(x.size()-1);
+        y.remove(y.size()-1);
+      }
     }
+  } else {
+    fill(0);
+    textAlign(CENTER);
+    text("GAME OVER", 300, 300);
   }
+  if (keyPressed == true) {
+    //determines the direction of the movement of the snake based on the w, a , s ,d keys
+    int newdir = key =='s' ? 0 : (key=='w' ? 1 : (key=='d' ? 2 : (key=='a' ? 3 : -1)));
+    if (newdir != -1) dir = newdir;
+  }
+}
