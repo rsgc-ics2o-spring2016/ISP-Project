@@ -5,10 +5,12 @@ int w=30, h=30, bs=20, dir=2;
 int foodx=10, foody=10;
 int i=0;
 boolean gameover=false;
+PFont font;
 void setup()
 {//create background colour and size of the canvas
   background(255);
   size(600, 600);
+  font=createFont("game_over.ttf",100);
   //starting point of the snake determined by x.add and y.add by using the array
   x.add(10);
   y.add(20);
@@ -16,8 +18,10 @@ void setup()
 void draw() {
   {
     background(255);
+    for(int i = 0 ; i < x.size(); i++) {
     fill(random(255), random(255), random(255));
     rect(x.get(i)*bs, y.get(i)*bs, bs, bs);
+  }
   }
   if (!gameover) {
     fill(255, 0, 0);
@@ -42,7 +46,8 @@ void draw() {
       }
     }
   } else {
-    fill(0);
+    fill(50,200,50);
+    textFont(font);
     textAlign(CENTER);
     text("GAME OVER", 300, 300);
   }
