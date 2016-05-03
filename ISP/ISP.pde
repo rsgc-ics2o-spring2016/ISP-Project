@@ -10,7 +10,7 @@ void setup()
 {//create background colour and size of the canvas
   background(255);
   size(600, 600);
-  font=createFont("game_over.ttf",100);
+  font=createFont("game_over.ttf", 100);
   //starting point of the snake determined by x.add and y.add by using the array
   x.add(10);
   y.add(20);
@@ -18,10 +18,10 @@ void setup()
 void draw() {
   {
     background(255);
-    for(int i = 0 ; i < x.size(); i++) {
-    fill(random(255), random(255), random(255));
-    rect(x.get(i)*bs, y.get(i)*bs, bs, bs);
-  }
+    for (int i = 0; i < x.size(); i++) {
+      fill(random(255), random(255), random(255));
+      rect(x.get(i)*bs, y.get(i)*bs, bs, bs);
+    }
   }
   if (!gameover) {
     fill(255, 0, 0);
@@ -46,14 +46,21 @@ void draw() {
       }
     }
   } else {
-    fill(50,200,50);
+    fill(50, 200, 50);
     textFont(font);
     textAlign(CENTER);
     text("GAME OVER", 300, 300);
+    if (keyPressed && key == 'r') {
+      x.clear(); //Clear array list
+      y.clear(); //Clear array list
+      x.add(5);
+      y.add(5);
+      gameover = false;
+    }
   }
-  if (keyPressed == true) {
-    //determines the direction of the movement of the snake based on the w, a , s ,d keys
-    int newdir = key =='s' ? 0 : (key=='w' ? 1 : (key=='d' ? 2 : (key=='a' ? 3 : -1)));
-    if (newdir != -1) dir = newdir;
-  }
+    if (keyPressed == true) {
+      //determines the direction of the movement of the snake based on the w, a , s ,d keys
+      int newdir = key =='s' ? 0 : (key=='w' ? 1 : (key=='d' ? 2 : (key=='a' ? 3 : -1)));
+      if (newdir != -1) dir = newdir;
+    }
 }
